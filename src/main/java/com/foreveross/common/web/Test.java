@@ -16,7 +16,7 @@ package com.foreveross.common.web;
  * auto generate by qdp.
  */
 public class Test {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.print("test");
     }
 }
