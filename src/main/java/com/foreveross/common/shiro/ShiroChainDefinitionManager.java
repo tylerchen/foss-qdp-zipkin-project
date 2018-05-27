@@ -15,7 +15,6 @@ import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.iff.infra.util.Exceptions;
 import org.iff.infra.util.FCS;
-import org.iff.infra.util.Logger;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -27,6 +26,8 @@ import java.util.Map;
  * @since Mar 20, 2018
  */
 public class ShiroChainDefinitionManager {
+
+    private static final org.iff.infra.util.Logger.Log Logger = org.iff.infra.util.Logger.get("FOSS-SHIRO");
 
     // 注意/r/n前不能有空格
     private static final String CRLF = "\r\n";
@@ -47,7 +48,7 @@ public class ShiroChainDefinitionManager {
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isEmpty(filterChainDefinitions)) {
             filterChainDefinitions = ConstantBean.getProperty("shiro.filterChainDefinitions", "");
-            Logger.info(FCS.get("Loading shiro filterChainDefinitions from shiro.properties, values: {0}.",
+            Logger.info(FCS.get("Shiro loading filterChainDefinitions from shiro.properties, values: {0}.",
                     filterChainDefinitions));
         } else {
             Logger.info(FCS.get("Shiro filterChainDefinitions has set, values: {0}.", filterChainDefinitions));
@@ -73,7 +74,7 @@ public class ShiroChainDefinitionManager {
         try {
             shiroFilterTmp = (AbstractShiroFilter) shiroFilter.getObject();
         } catch (Exception e) {
-            Exceptions.runtime("Get ShiroFilter from shiroFilterFactoryBean error!", e);
+            Exceptions.runtime("SHiro get ShiroFilter from shiroFilterFactoryBean error!", e);
         }
 
         PathMatchingFilterChainResolver filterChainResolver = (PathMatchingFilterChainResolver) shiroFilterTmp

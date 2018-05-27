@@ -21,6 +21,7 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -29,8 +30,7 @@ import java.util.Set;
  * @author <a href="mailto:iffiff1@gmail.com">Tyler Chen</a>
  * @since Aug 28, 2017
  */
-@Named("monitorRealm")
-public class MonitorRealm extends AuthorizingRealm {
+public class UserNamePasswordRealm extends AuthorizingRealm {
 
     @Inject
     @Named("systemApplication")
@@ -38,7 +38,7 @@ public class MonitorRealm extends AuthorizingRealm {
     @Inject
     AuthorizationApplication authorizationApplication;
 
-    public MonitorRealm() {
+    public UserNamePasswordRealm() {
         super();
         setPermissionResolver(new UrlWildcardPermissionResolver());
     }
@@ -48,7 +48,11 @@ public class MonitorRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        Object object = principals.fromRealm(getName()).iterator().next();
+        Iterator<?> iterator = principals.fromRealm(getName()).iterator();
+        if (!iterator.hasNext()) {
+            return null;
+        }
+        Object object = iterator.next();
         Set<String> roleNames = authorizationApplication.findAuthRoleByLoginId(object.toString());
         Set<String> permissions = authorizationApplication.findAuthResourceByLoginId(object.toString());
         Set<Permission> objectPermissions = new HashSet<Permission>();
@@ -91,4 +95,17 @@ public class MonitorRealm extends AuthorizingRealm {
             }
         }
     }
+
+    /**
+     * 仅支持UsernamePasswordToken验证。
+     * (non-Javadoc)
+     *
+     * @author <a href="mailto:iffiff1@gmail.com">Tyler Chen</a>
+     * @see org.apache.shiro.realm.AuthenticatingRealm#supports(AuthenticationToken)
+     * @since Mar 21, 2018
+     */
+    public boolean supports(AuthenticationToken token) {
+        return token instanceof UsernamePasswordToken;
+    }
+
 }
