@@ -46,65 +46,6 @@
             </div>
         </div>
         <div class="login-form_footer">2017-2019 &copy; Forever Open Source & Forever Flying {{app_version}}</div>
-        <!--<div class="layout">
-            <div class="layout-ceiling">
-                <el-row type="flex" justify="center" align="middle">
-                       <div class="qdp-logo">QDP登录</div>
-                   </el-row>
-            </div>
-            <div class="form-height">
-                <el-row type="flex" justify="center" align="middle">
-                    <el-col :span="9">
-                        <p class="form-height"></p>
-                    </el-col>
-                    <el-col :span="6" class="v-middle">
-                        <el-form ref="loginForm" :model="loginForm" :rules="ruleLoginForm" @keydown.enter.stop.native="onEnter" @keyup.enter.stop.native="doNothing">
-                            <el-row>
-                                <el-form-item prop="loginId">
-                                    <el-input type="text" v-model="loginForm.loginId" placeholder="loginId">
-                                        <i class="el-icon-ion-ios-person-outline icon&#45;&#45;primary" slot="prepend"></i>
-                                    </el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item prop="loginPasswd">
-                                    <el-input type="password" v-model="loginForm.loginPasswd" placeholder="Password">
-                                        <i class="el-icon-ion-ios-locked-outline" slot="prepend"></i>
-                                    </el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item prop="validCode">
-                                    <el-input type="text" v-model="loginForm.validCode" placeholder="ValidateCode" @keyup.enter="handleSubmit">
-                                    <i class="el-icon-ion-ios-locked-outline" slot="prepend"></i> <img slot="append" height="22px" width="40px" style="vertical-align: middle;" :src.sync="validCodeUrl" @click="changeValidCode"> </el-input>
-                                </el-form-item>
-                            </el-row>
-                            <el-row>
-                                <el-form-item>
-                                    <el-row type="flex" justify="center" align="middle">
-                                        <el-button type="primary" @click.native="handleSubmit">登录</el-button>
-                                    </el-row>
-                                </el-form-item>
-                            </el-row>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="9"></el-col>
-                </el-row>
-            </div>
-            <div>
-                <el-row type="flex" justify="center" align="middle">
-                       <el-row type="flex" justify="center" align="middle">
-                        <div class="el-card box-card" style="background-color: #58B7FF; padding: 15px 40px;">
-                            <a target="_blank" href="../baseproject/qdp-4.0.0.zip" style="text-decoration-line: unset;color: white;">下载工程模板（完整）</a>
-                        </div>
-                        <div class="el-card box-card" style="background-color: #67C23A; padding: 15px 40px;">
-                            <a target="_blank" href="../baseproject/qdp-simpleauth-4.0.0.zip" style="text-decoration-line: unset;color: white;">下载工程模板（无组织权限）</a>
-                        </div>
-                       </el-row>
-                </el-row>
-            </div>
-            <div class="layout-copy">2017-2019 &copy; Forever Open Source & Forever Flying {{app_version}}</div>
-        </div>-->
     </div>
 </template>
 <script type="text/javascript">
@@ -125,7 +66,7 @@
           app_version: app_version || '',
           validCodeUrl: qdpPathJoin(ctx, "/system/valid.png?_=") + qdpRandom(),
           loginForm: {
-            loginId: 'admin@123.com',
+            loginId: '',
             loginPasswd: '',
             validCode: ''
           },
