@@ -10,6 +10,7 @@ package com.foreveross.common.config;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
@@ -36,13 +37,18 @@ import javax.servlet.DispatcherType;
  */
 @EnableZipkinServer
 @EnableEurekaClient
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class, TransactionAutoConfiguration.class})
-
+@SpringBootApplication(
+        exclude = {DataSourceAutoConfiguration.class,
+                DataSourceTransactionManagerAutoConfiguration.class,
+                TransactionAutoConfiguration.class,
+                JacksonAutoConfiguration.class})
 //@ImportResource({ "classpath:META-INF/spring/root.xml" }) =>这个放到application.properties中配置了
-@ComponentScan(basePackages = {"com.foreveross.qdp", "com.foreveross.common",
-        "com.foreveross.extension"}, excludeFilters = {
-        @Filter(type = FilterType.REGEX, pattern = {"com.foreveross.extension.activiti.*"})})
+@ComponentScan(
+        basePackages = {"com.foreveross.qdp",
+                "com.foreveross.common",
+                "com.foreveross.extension"},
+        excludeFilters = {
+                @Filter(type = FilterType.REGEX, pattern = {"com.foreveross.extension.activiti.*"})})
 public class BootApplication extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) throws Exception {
@@ -88,27 +94,6 @@ public class BootApplication extends WebMvcConfigurerAdapter {
         filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
         return filterRegistration;
     }
-//    @Bean
-//    public DelegatingFilterProxy shiroFilter() {
-//        DelegatingFilterProxy filter = new DelegatingFilterProxy();
-//        filter.setTargetFilterLifecycle(true);
-//        filter.setTargetBeanName("shiroFilter");
-//        return filter;
-//    }
-//
-//    @Bean
-//    public DispatcherServlet dispatcherServlet() {
-//        DispatcherServlet servlet = new DispatcherServlet();
-//        servlet.setDispatchOptionsRequest(true);
-//        return servlet;
-//    }
-//
-//    @Bean
-//    public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
-//        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet, "/*");
-//        registration.setLoadOnStartup(1);
-//        return registration;
-//    }
 
     /**
      * 文件上传
